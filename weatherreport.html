@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Today's Temperature</title>
+</head>
+<body>
+	<p id="output">Temperature will show here</p>
+	<input id="city">
+	<button onclick="show_temp()">submit</button>
+	<script type="text/javascript">
+		function show_temp(){
+			city=document.getElementById("city").value;
+			httpRequest=new XMLHttpRequest();
+			url="https://api.weatherbit.io/v2.0/current?city="+city+"&key=11d20aeb30894341b589a4c411c4799f";
+			httpRequest.open("GET",url);
+			httpRequest.send();
+			
+			httpRequest.onreadystatechange=function(){
+				if(this.status==200){
+					result=JSON.parse(this.responseText);
+					document.getElementById("output").innerHTML=result.data[0].temp;
+					console.log(result.temp);
+				}
+			};
+		}
+	</script>
+</body>
+</html>
